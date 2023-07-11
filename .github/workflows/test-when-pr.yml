@@ -10,6 +10,10 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
+    permissions:
+      issues: write
+      pull-requests: write
+
     steps:
       - name: 레포지토리 체크아웃
         uses: actions/checkout@v3
