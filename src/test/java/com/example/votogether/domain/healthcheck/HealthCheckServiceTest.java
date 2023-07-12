@@ -17,7 +17,7 @@ class HealthCheckServiceTest {
     @Test
     void check2() {
         final String result = healthCheckService.check();
-        assertThat(result).isEqualTo("check");
+        assertThat(result).isEqualTo("check1");
     }
 
 }
