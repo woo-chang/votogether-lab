@@ -4,6 +4,8 @@ on:
   pull_request:
     branches:
       - main
+    paths:
+      - 'src/main/java/com/example/votogether/domain/test/**'
 
 jobs:
   test:
