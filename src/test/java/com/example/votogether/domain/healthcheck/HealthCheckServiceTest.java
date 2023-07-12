@@ -1,6 +1,7 @@
 package com.example.votogether.domain.healthcheck;
 
-import org.assertj.core.api.Assertions;
+import static org.assertj.core.api.Assertions.assertThat;
+
 import org.junit.jupiter.api.Test;
 
 class HealthCheckServiceTest {
@@ -10,7 +11,13 @@ class HealthCheckServiceTest {
     @Test
     void check() {
         final String result = healthCheckService.check();
-        Assertions.assertThat(result).isEqualTo("health");
+        assertThat(result).isEqualTo("health");
+    }
+
+    @Test
+    void check2() {
+        final String result = healthCheckService.check();
+        assertThat(result).isEqualTo("check");
     }
 
 }
