@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - 'src/main/java/com/example/votogether/domain/test/**'
+      - 'src/main/java/com/example/votogether/test/**'
 
 jobs:
   test:
