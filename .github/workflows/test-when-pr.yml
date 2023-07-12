@@ -45,6 +45,7 @@ jobs:
       - name: 테스트 실패 시 Slack 알림
         uses: 8398a7/action-slack@v3
         with:
+          status: ${{ job.status }}
           author_name: 백엔드 PR 테스트 실패 알림
           fields: repo, message, commit, author, action, eventName, ref, workflow, job, took
         env:
