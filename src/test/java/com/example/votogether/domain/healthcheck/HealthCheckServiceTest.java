@@ -14,4 +14,10 @@ class HealthCheckServiceTest {
         assertThat(result).isEqualTo("health-check");
     }
 
+    @Test
+    void health() {
+        final String result = healthCheckService.check();
+        assertThat(result).isEqualTo("health-check");
+    }
+
 }
