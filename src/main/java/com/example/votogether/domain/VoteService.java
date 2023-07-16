@@ -14,4 +14,8 @@ public class VoteService {
         return "vote";
     }
 
+    public String vote2() {
+        return "vote2";
+    }
+
 }
