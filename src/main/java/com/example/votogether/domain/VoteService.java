@@ -18,4 +18,12 @@ public class VoteService {
         return "vote2";
     }
 
+    public String vote3() {
+        return "vote3";
+    }
+
+    public String vote4() {
+        return "vote4";
+    }
+
 }
