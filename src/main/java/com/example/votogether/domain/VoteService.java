@@ -18,4 +18,8 @@ public class VoteService {
         return "vote2";
     }
 
+    public String vote3() {
+        return "vote3";
+    }
+
 }
