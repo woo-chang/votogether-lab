@@ -1,0 +1,6 @@
+# CORS ERROR PROTECT
+spring:
+  servlet:
+    multipart:
+      max-file-size: 30MB
+      max-request-size: 30MB
