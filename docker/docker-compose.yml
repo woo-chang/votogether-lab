@@ -7,5 +7,5 @@ services:
     ports:
       - 8080:8080
     volumes:
-      - ../../images:/home/images
+      - ../../images:/home/static/images
     command: tail -f /dev/null
