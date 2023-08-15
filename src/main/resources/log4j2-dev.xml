@@ -2,6 +2,7 @@
 <Configuration status="debug" monitorInterval="5">
     <Properties>
         <Property name="FILE_NAME">votogether</Property>
+        <Property name="ERROR_FILE_NAME">votogether-error</Property>
         <Property name="FILE_LOG_PATTERN">
             [%d{yyyy-MM-dd 'T' HH:mm:ss.SSS}] %-5p %pid --- [%t] %c : %m%n
         </Property>
@@ -11,24 +12,37 @@
         <RollingFile
                 name="RollingFileAppender"
                 fileName="logs/${FILE_NAME}.log"
-                filePattern="logs/${FILE_NAME}.%d{yyyy-MM-dd}.log"
+                filePattern="logs/${FILE_NAME}.%d{yyyy-MM-dd-HH:mm}.log"
         >
             <PatternLayout pattern="${FILE_LOG_PATTERN}"/>
             <Policies>
-                <TimeBasedTriggeringPolicy modulate="true" interval="1"/>
-                <!-- <SizeBasedTriggeringPolicy size="50KB"/> -->
+                <TimeBasedTriggeringPolicy modulate="false" interval="1"/>
             </Policies>
-            <!-- 인덱스 걸고 max 3 해두면 같은 인덱스 3개 유지 -->
-            <!-- 동일한 시간의 파일이 3개가 되면 인덱스가 작은 것을 삭제하고 파일 이름 변경을 통해 한칸씩 파일 인덱스를 이동시킨다.-->
             <DefaultRolloverStrategy>
-                <Delete basePath="logs" maxDepth="2">
-                    <!-- 시간에 따른 파일 최대 3개 유지 -->
-                    <!-- 파일 3개 되면 가장 이전 것을 삭제 -->
-                    <IfAccumulatedFileCount exceeds="4"/>
+                <Delete basePath="logs" maxDepth="1">
+                    <IfLastModified age="3m"/>
                 </Delete>
             </DefaultRolloverStrategy>
         </RollingFile>
 
+        <RollingFile
+                name="RollingErrorFileAppender"
+                fileName="logs/${ERROR_FILE_NAME}.log"
+                filePattern="logs/error/${ERROR_FILE_NAME}.%d{yyyy-MM-dd-HH:mm}.log"
+        >
+            <PatternLayout pattern="${FILE_LOG_PATTERN}"/>
+            <Filters>
+                <LevelMatchFilter level="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+            <Policies>
+                <TimeBasedTriggeringPolicy modulate="false" interval="1"/>
+            </Policies>
+            <DefaultRolloverStrategy>
+                <Delete basePath="logs/error" maxDepth="1">
+                    <IfLastModified age="3m"/>
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingFile>
     </Appenders>
 
     <Loggers>
@@ -50,6 +64,7 @@
 
         <Root level="debug">
             <AppenderRef ref="RollingFileAppender"/>
+            <AppenderRef ref="RollingErrorFileAppender"/>
         </Root>
     </Loggers>
 </Configuration>
