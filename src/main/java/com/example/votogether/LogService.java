@@ -10,6 +10,7 @@ public class LogService {
 
     @Transactional(readOnly = true)
     public String log() {
+        System.out.println("hello service");
         log.trace("trace-log");
         log.debug("debug-log");
         log.info("info-log");
