@@ -1,4 +1,4 @@
-package com.example.votogether;
+package com.example.votogether.application;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
