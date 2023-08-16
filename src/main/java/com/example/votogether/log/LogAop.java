@@ -18,14 +18,18 @@ public class LogAop {
 
     private final Logger logger;
 
+    //포인트컷은 Advice의 적용대상을 의미한다.
+    //@RestController 어노테이션이 붙은 클래스에서 실행되는 메서드를 포인트 컷으로 정의한다.
     @Pointcut("@within(org.springframework.web.bind.annotation.RestController)")
     public void restControllerAnnotatedClass() {
     }
 
+    //@Service 어노테이션이 붙은 클래스에서 실행되는 메서드를 포인트 컷으로 정의한다.
     @Pointcut("@within(org.springframework.stereotype.Service)")
     public void serviceAnnotatedClass() {
     }
 
+    //특정 패키지 하위에 있는 @Repository로 끝나는 인터페이스/클래스의 모든 메서드를 포인트 컷으로 정의한다.
     @Pointcut("execution(* com.celuveat..*Repository+.*(..))")
     public void repositoryClass() {
     }

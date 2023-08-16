@@ -21,11 +21,13 @@ public class PreparedStatementMethodInterceptor implements MethodInterceptor {
     }
 
     private boolean isExecuteQuery(Method method) {
+        //메서드가 아래와 같은지 확인한다.
         String methodName = method.getName();
         return methodName.equals("executeQuery") || methodName.equals("execute") || methodName.equals("executeUpdate");
     }
 
     private boolean isInRequestScope() {
+        //이 값이 null이 아니라면 Request Scope 내에 있음을 의미한다.
         return Objects.nonNull(RequestContextHolder.getRequestAttributes());
     }
 }

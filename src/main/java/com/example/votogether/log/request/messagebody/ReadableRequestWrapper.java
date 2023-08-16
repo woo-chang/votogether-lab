@@ -14,9 +14,12 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 
+//HttpServletRequestWrapper를 상속받음으로 HttpServletRequest 객체를 래핑하여 HTTP 요청 입력 스트림을 재사용할 수 있도록 한다.
 public class ReadableRequestWrapper extends HttpServletRequestWrapper {
 
+    //요청 본문의 문자 인코딩을 저장하는 객체
     private final Charset encoding;
+    //요청 본문의 원시 데이터를 배열로 저장한다.
     private final byte[] rawData;
 
     public ReadableRequestWrapper(HttpServletRequest request) {
@@ -24,7 +27,9 @@ public class ReadableRequestWrapper extends HttpServletRequestWrapper {
         String charEncoding = request.getCharacterEncoding();
         this.encoding = getEncoding(charEncoding);
         try {
+            //원래 요청의 입력 스트림을 가져온다.
             InputStream is = request.getInputStream();
+            //입력 스트림의 모든 바이트를 읽어 필드로 저장한다.
             this.rawData = is.readAllBytes();
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -40,6 +45,7 @@ public class ReadableRequestWrapper extends HttpServletRequestWrapper {
 
     @Override
     public ServletInputStream getInputStream() throws IOException {
+        //저장된 바이트를 사용하여 입력 스트림을 생성한다.
         ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(this.rawData);
 
         return new ServletInputStream() {
