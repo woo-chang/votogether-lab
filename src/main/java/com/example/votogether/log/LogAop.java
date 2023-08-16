@@ -35,6 +35,7 @@ public class LogAop {
     }
 
     @Around("restControllerAnnotatedClass() || serviceAnnotatedClass() || repositoryClass()")
+    //JoinPoint는 가로챌 수 있는 어느 시점을 의미한다.
     public Object doLog(ProceedingJoinPoint joinPoint) throws Throwable {
         if (isNotRequestScope()) {
             return joinPoint.proceed();
